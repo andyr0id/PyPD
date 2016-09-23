@@ -29,7 +29,7 @@ Test setting the DSP state
 
 Open / close patch
 
-    >>> dz = pd.openPatch('sin.pd')
+    >>> dz = pd.openPatch('sin.pd', '../../../../patches')
     >>> dz
     1003
     >>> pd.closePatch(dz)
@@ -37,26 +37,19 @@ Open / close patch
 Run a basic patch
 
     >>> pd.setChannels(1, 1)
-    >>> dz = pd.openPatch('sin.pd')
+    >>> dz = pd.openPatch('sin.pd', '../../../../patches')
     >>> pd.play()
+    >>> from pypd.utils import getBuffer
     >>> inbuf = getBuffer(pd)
     >>> out = pd.process(inbuf)
     >>> out[:10]
-    array('h', [32767, 32750, 32702, 32621, 32509, 32364, 32188, 31981, 31741, 31471])
+    array('h', [0, -1026, -2052, -3076, -4097, -5114, -6126, -7131, -8130, -9121])
+    >>> pd.stop()
+    >>> pd.closePatch(dz)
 
 """
 
 from pypd.tests import runModuleTestSuite
-import array
-
-def getBuffer(pd, inbuf=True):
-    outch, inch = pd.getChannels()
-    if inbuf:
-        ch = inch
-    else:
-        ch = outch
-    return array.array(pd.getTypecode(),
-        '\x00\x00' * ch * pd.getBlocksize() * pd.ticksPerBuffer)
 
 if __name__ == "__main__":
     runModuleTestSuite(__import__('__main__'))

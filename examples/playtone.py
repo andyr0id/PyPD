@@ -1,16 +1,7 @@
 import pyaudio
 import sys
 from pypd import PD
-import array
-
-def getBuffer(pd, inbuf=True):
-    outch, inch = pd.getChannels()
-    if inbuf:
-        ch = inch
-    else:
-        ch = outch
-    return array.array(pd.getTypecode(),
-        '\x00\x00' * ch * pd.getBlocksize() * pd.ticksPerBuffer)
+from pypd.utils import getBuffer
 
 def main():
     # ticksPerBuffer affect the latency and stability
@@ -32,7 +23,7 @@ def main():
                     frames_per_buffer = outch * bs * tpb)
 
     # open a patch and turn on the DSP
-    pd.openPatch('sin.pd')
+    pd.openPatch('sin.pd', '../patches/')
     pd.play()
 
     # process some audio

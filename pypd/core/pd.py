@@ -1,5 +1,6 @@
 import array
 import pylibpd as pd
+from pypd.utils import getBuffer
 
 process_functions = {
     'h': pd.libpd_process_short
@@ -69,8 +70,7 @@ class PD(object):
         self.initAudio()
 
     def initBuffers(self):
-        self.__outbuf = array.array(self.__typecode,
-            '\x00\x00' * self.__outChannels * self.__blocksize * self.ticksPerBuffer)
+        self.__outbuf = getBuffer(self, 'output')
 
     def initAudio(self):
         return pd.libpd_init_audio(self.__inChannels, self.__outChannels, self.__sampleRate)

@@ -1,1 +1,2 @@
-from core.pd import *
+from .core.pd import *
+from .midi import *
