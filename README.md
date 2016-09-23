@@ -4,7 +4,7 @@ PyPD is a python library for libpd. It's an object oriented wrapper around the s
 
 ## Requirements
 
-PyPD requires a working installation of [libpd](https://github.com/libpd/libpd) and `pylibpd`. `pyaudio` is required for sonification.
+PyPD requires a working installation of [libpd](https://github.com/libpd/libpd) and `pylibpd`. [PyAudio](http://people.csail.mit.edu/hubert/pyaudio/) is required for sonification.
 
 ## Installation
 
