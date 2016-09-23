@@ -1,0 +1,22 @@
+# About PyPD
+
+PyPD is a python library for libpd. It's an object oriented wrapper around the standard python bindings that libpd ships with.
+
+## Requirements
+
+PyPD requires a working installation of [libpd](https://github.com/libpd/libpd) and `pylibpd`. `pyaudio` is required for sonification.
+
+## Installation
+
+One you have met and tested the requirements, simply clone this repo and install with `easy_install`.
+
+```
+$ python setup.py develop
+```
+
+Doing it this way means you can keep up to date by just pulling the repo.
+
+## Documentation
+
+There is none (yet)! Check out the examples folder and the unit tests, but the usage should be pretty straight-forward.
+

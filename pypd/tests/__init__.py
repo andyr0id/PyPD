@@ -1,0 +1,1 @@
+from testsuites import runModuleTestSuite
