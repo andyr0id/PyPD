@@ -1,9 +1,11 @@
 import array
 import pylibpd as pd
-from pypd.utils import getBuffer
+from pypd.utils import getBuffer, getRawBuffer
 
 process_functions = {
-    'h': pd.libpd_process_short
+    'h': pd.libpd_process_short,
+    'f': pd.libpd_process_float,
+    'd': pd.libpd_process_double,
 }
 
 class PD(object):
@@ -71,6 +73,7 @@ class PD(object):
 
     def initBuffers(self):
         self.__outbuf = getBuffer(self, 'output')
+        self.__rawOutbuf = getRawBuffer(self, 'output')
 
     def initAudio(self):
         return pd.libpd_init_audio(self.__inChannels, self.__outChannels, self.__sampleRate)
@@ -94,6 +97,10 @@ class PD(object):
         global process_functions
         process_functions[self.__typecode](self.ticksPerBuffer, inbuf, self.__outbuf)
         return self.__outbuf
+
+    def processRaw(self, inbuf):
+        pd.libpd_process_raw(inbuf, self.__rawOutbuf)
+        return self.__rawOutbuf
 
     def release(self):
         pd.libpd_release()

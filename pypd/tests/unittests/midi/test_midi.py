@@ -63,6 +63,5 @@ def testMidiOut(pd):
     for i in xrange(512):
         out = pd.process(inbuf)[:]
 
-
 if __name__ == "__main__":
     runModuleTestSuite(__import__('__main__'))
