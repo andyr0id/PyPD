@@ -1,1 +1,1 @@
-from pdmidi import PDMidiIn
+from pdmidi import PDMidiIn, PDMidiOut
