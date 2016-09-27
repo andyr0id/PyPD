@@ -47,6 +47,7 @@ Run a basic patch
     array('h', [0, -1026, -2052, -3076, -4097, -5114, -6126, -7131, -8130, -9121])
     >>> pd.stop()
     >>> pd.closePatch(dz)
+    >>> pd.release()
 
 """
 

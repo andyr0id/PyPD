@@ -21,6 +21,7 @@ Test MIDI events
     >>> testMidiOut(pd)
     (60, 0, 0)
     (60, 127, 0)
+    >>> pd.release()
 
 
 """
