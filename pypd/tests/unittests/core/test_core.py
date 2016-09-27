@@ -29,15 +29,16 @@ Test setting the DSP state
 
 Open / close patch
 
-    >>> dz = pd.openPatch('sin.pd', '../../../../patches')
-    >>> dz
-    1003
+    >>> patchesDir = getPatchesDir()
+    >>> dz = pd.openPatch('sin.pd', patchesDir)
+    >>> isinstance(dz, int)
+    True
     >>> pd.closePatch(dz)
 
 Run a basic patch
 
     >>> pd.setChannels(1, 1)
-    >>> dz = pd.openPatch('sin.pd', '../../../../patches')
+    >>> dz = pd.openPatch('sin.pd', patchesDir)
     >>> pd.play()
     >>> from pypd.utils import getBuffer
     >>> inbuf = getBuffer(pd)
@@ -50,6 +51,7 @@ Run a basic patch
 """
 
 from pypd.tests import runModuleTestSuite
+from pypd.tests.testutils import getPatchesDir
 
 if __name__ == "__main__":
     runModuleTestSuite(__import__('__main__'))

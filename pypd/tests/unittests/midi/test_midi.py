@@ -4,7 +4,8 @@ Test MIDI events
 
     >>> from pypd import PD
     >>> pd = PD(numOutChannels=1)
-    >>> dz = pd.openPatch('midisynth.pd', '../../../../patches')
+    >>> patchesDir = getPatchesDir()
+    >>> dz = pd.openPatch('midisynth.pd', patchesDir)
     >>> pd.play()
     >>> x, a, s, r = testMidiIn(pd)
     >>> x[:16]
@@ -16,7 +17,7 @@ Test MIDI events
     >>> r[-16:]
     array('h', [-3, -3, -3, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, 0])
     >>> pd.closePatch(dz)
-    >>> dz = pd.openPatch('midisend.pd', '../../../../patches')
+    >>> dz = pd.openPatch('midisend.pd', patchesDir)
     >>> testMidiOut(pd)
     (60, 0, 0)
     (60, 127, 0)
@@ -27,6 +28,7 @@ Test MIDI events
 from pypd import PDMidiIn, PDMidiOut
 from pypd.utils import getBuffer
 from pypd.tests import runModuleTestSuite
+from pypd.tests.testutils import getPatchesDir
 
 def testMidiIn(pd):
     midiIn = PDMidiIn()
