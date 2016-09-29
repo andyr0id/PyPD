@@ -18,13 +18,13 @@ Test changing the channels
 
 Test setting the DSP state
 
-    >>> pd.isPlaying()
+    >>> pd.isDSPOn()
     False
-    >>> pd.play()
-    >>> pd.isPlaying()
+    >>> pd.dspOn()
+    >>> pd.isDSPOn()
     True
-    >>> pd.stop()
-    >>> pd.isPlaying()
+    >>> pd.dspOff()
+    >>> pd.isDSPOn()
     False
 
 Open / close patch
@@ -39,13 +39,13 @@ Run a basic patch
 
     >>> pd.setChannels(1, 1)
     >>> dz = pd.openPatch('sin.pd', patchesDir)
-    >>> pd.play()
+    >>> pd.dspOn()
     >>> from pypd.utils import getBuffer
     >>> inbuf = getBuffer(pd)
     >>> out = pd.process(inbuf)
     >>> out[:10]
     array('h', [0, -1026, -2052, -3076, -4097, -5114, -6126, -7131, -8130, -9121])
-    >>> pd.stop()
+    >>> pd.dspOff()
     >>> pd.closePatch(dz)
     >>> pd.release()
 

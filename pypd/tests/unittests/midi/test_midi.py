@@ -6,7 +6,7 @@ Test MIDI events
     >>> pd = PD(numOutChannels=1)
     >>> patchesDir = getPatchesDir()
     >>> dz = pd.openPatch('midisynth.pd', patchesDir)
-    >>> pd.play()
+    >>> pd.dspOn()
     >>> x, a, s, r = testMidiIn(pd)
     >>> x[:16]
     array('h', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])

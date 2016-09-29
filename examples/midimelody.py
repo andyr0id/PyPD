@@ -2,16 +2,17 @@ from pypd import PD, PDMidiIn
 from pypd.utils import getBuffer
 import pyaudio
 import sys
+import time
 
 def main():
     # ticksPerBuffer affect the latency and stability
-    tpb = 512
+    tpb = 1
     # create a new PD object
     pd = PD(numOutChannels=1, ticksPerBuffer=tpb)
     # open a patch
     dz = pd.openPatch('midisynth.pd', '../patches')
     # turn on the DSP
-    pd.play()
+    pd.dspOn()
 
     # create a MIDI channel to PD
     midi = PDMidiIn()
@@ -22,33 +23,38 @@ def main():
     outch, inch = pd.getChannels()
     bs = pd.getBlocksize()
 
-    # create an audio stream
+    # create a threaded audio stream
+    def callback(in_data, frame_count, time_info, status):
+        outbuf = pd.process(inbuf)
+        return (outbuf, pyaudio.paContinue)
+
     p = pyaudio.PyAudio()
     stream = p.open(format = pyaudio.paInt16,
                     channels = outch,
                     rate = pd.getSampleRate(),
                     output = True,
-                    frames_per_buffer = outch * bs * tpb)
+                    frames_per_buffer = outch * bs * tpb,
+                    stream_callback = callback)
 
-    # duration
-    dur = 20
+    # note duration
+    dur = 0.5
     # make a melody
     melody = [60, 62, 64, 65, 67, 65, 64, 62, 60]
+    totalDur = dur * len(melody) + 1
     # play it!
-    j = 0
-    spt = pd.getSampleRate() / bs / tpb
-    for i in xrange(int(dur * spt)):
-        if i % spt == 0:
-            # release last note
-            if j > 0:
-                midi.noteOff(melody[j-1])
-            # trigger next note
-            if j < len(melody):
-                note = melody[j]
-                midi.noteOn(note)
-                j += 1
-        outbuf = pd.process(inbuf)
-        stream.write(outbuf)
+    i = 0
+    t = 0
+    while t < totalDur:
+        # release last note
+        if i > 0:
+            midi.noteOff(melody[i-1])
+        # trigger next note
+        if i < len(melody):
+            note = melody[i]
+            midi.noteOn(note)
+            i += 1
+        t += dur
+        time.sleep(dur)
 
     # tidy up the audio stream
     stream.close()

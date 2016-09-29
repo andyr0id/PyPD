@@ -84,13 +84,13 @@ class PD(object):
     def closePatch(self, dz):
         return pd.libpd_close_patch(dz)
 
-    def play(self):
+    def dspOn(self):
         self.setDSPState(1)
 
-    def stop(self):
+    def dspOff(self):
         self.setDSPState(0)
 
-    def isPlaying(self):
+    def isDSPOn(self):
         return self.__dspState == 1
 
     def process(self, inbuf):
