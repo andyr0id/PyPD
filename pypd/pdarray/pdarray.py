@@ -11,13 +11,18 @@ class PDArray(array):
         pd.libpd_read_array(a, name, 0, size)
         return a
 
+    def __setitem__(self, key, value):
+        r = super(PDArray, self).__setitem__(key, value)
+        self.send()
+        return r
+
+    def __setslice__(self, a, b, v):
+        r = super(PDArray, self).__setslice__(a, b, v)
+        self.send()
+        return r
+
     def getName(self):
         return self.__name
-
-    def copy(self, buf, send=True):
-        self[:] = buf
-        if send:
-            self.send()
 
     def send(self):
         return pd.libpd_write_array(self.__name, 0, self, len(self))
