@@ -33,7 +33,7 @@ def main():
                     channels = outch,
                     rate = pd.getSampleRate(),
                     output = True,
-                    frames_per_buffer = outch * bs * tpb,
+                    frames_per_buffer = bs * tpb,
                     stream_callback = callback)
 
     # note duration
