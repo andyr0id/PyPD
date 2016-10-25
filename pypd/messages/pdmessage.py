@@ -21,6 +21,7 @@ class PDIn(object):
 
 class PDOut(object):
     def __init__(self):
+        self.currentPrint = []
         self.__callbacks = {
             'print': [],
             'bang': [],
@@ -29,7 +30,7 @@ class PDOut(object):
             'list': [],
             'message': [],
         }
-        pd.libpd_set_print_callback(lambda *s: self.__callback('print', *s))
+        pd.libpd_set_print_callback(lambda *s: self.__onPrint(*s))
         pd.libpd_set_bang_callback(lambda *s: self.__callback('bang', *s))
         pd.libpd_set_float_callback(lambda *s: self.__callback('float', *s))
         pd.libpd_set_symbol_callback(lambda *s: self.__callback('symbol', *s))
@@ -68,4 +69,17 @@ class PDOut(object):
 
     def message(self, fn):
         self.addCallback('message', fn)
+
+    def __finishPrint(self):
+        self.__callback('print', ' '.join(self.currentPrint))
+        self.currentPrint = []
+
+    def __onPrint(self, msg):
+        finish = msg.endswith('\n')
+        msg = msg.strip()
+        if msg != '':
+            self.currentPrint.append(msg)
+        if finish:
+            self.__finishPrint()
+
         
