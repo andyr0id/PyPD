@@ -2,6 +2,8 @@ import pylibpd as pd
 from array import array
 
 class PDArray(array):
+    """Allows manipulation of a PD array as a python array. Slicing and setting are suppoted.
+    """
     def __new__(cls, name):
         size = pd.libpd_arraysize(name)
         if size < 0:

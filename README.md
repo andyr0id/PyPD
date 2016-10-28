@@ -18,5 +18,5 @@ Doing it this way means you can keep up to date by just pulling the repo.
 
 ## Documentation
 
-There is none (yet)! Check out the examples folder and the unit tests, but the usage should be pretty straight-forward.
+There is none (yet)! The code is fully commented and you can also check out the examples folder and the unit tests. The usage should be pretty straight-forward.
 
