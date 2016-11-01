@@ -8,26 +8,11 @@ Test sending and receiving messages
     >>> dz = pd.openPatch('messages.pd', patchesDir)
     >>> testMessages(pd)
     print: print: 42
-    <BLANKLINE>
     float: eggs 42.0
-    print: print: symbol
-    print:  
-    print: hello
-    print: 
-    <BLANKLINE>
+    print: print: symbol hello
     symbol:
     ('eggs', 'hello')
-    print: print: list
-    print:  
-    print: test
-    print:  
-    print: 1
-    print:  
-    print: foo
-    print:  
-    print: 2
-    print: 
-    <BLANKLINE>
+    print: print: list test 1 foo 2
     >>> pd.release()
 
 """

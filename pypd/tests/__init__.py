@@ -1,1 +1,1 @@
-from testsuites import runModuleTestSuite
+from .testsuites import runModuleTestSuite

@@ -1,1 +1,1 @@
-from pdarray import PDArray
+from .pdarray import PDArray
